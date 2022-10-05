@@ -1,17 +1,17 @@
-import java.util.HashMap;
+import java.util.HashSet;
 
 class Solution {
     public boolean solution(String[] phone_book) {
         boolean answer = true;
-
-        HashMap<String, Integer> hm = new HashMap<>();
-        for (int i = 0; i < phone_book.length; i++) {
-            hm.put(phone_book[i], 1);
+        HashSet<String> hs = new HashSet<>();
+        
+        for(String item : phone_book){
+            hs.add(item);
         }
 
         for (int i = 0; i < phone_book.length; i++) {
             for (int j = 1; j < phone_book[i].length(); j++) {
-                if(hm.containsKey(phone_book[i].substring(0,j))){
+                if(hs.contains(phone_book[i].substring(0,j))){
                     return false;
                 }
             }
