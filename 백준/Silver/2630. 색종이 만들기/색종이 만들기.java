@@ -1,36 +1,47 @@
-import java.util.Scanner;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[] cnt = new int[2];
-    static int[][] paper;
+    static int[] count = new int[2];
+    static int[][] coloredPaper;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
-        paper = new int[N][N];
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < N; j++)
-                paper[i][j] = sc.nextInt();
+        coloredPaper = new int[N][N];
 
-        divide(N, 0, 0);
-        for (int n : cnt)
-            System.out.println(n);
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            for (int j = 0; j < N; j++) {
+                coloredPaper[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        recursive(N, 0, 0);
+        System.out.println(count[0]);
+        System.out.println(count[1]);
     }
 
-    static void divide(int n, int y, int x) {
+    static void recursive(int n, int y, int x) {
         for (int i = y; i < y + n; i++) {
             for (int j = x; j < x + n; j++)
-                if (paper[i][j] != paper[y][x]) {
-                    divide(n / 2, y, x);
-                    divide(n / 2, y + n / 2, x);
-                    divide(n / 2, y, x + n / 2);
-                    divide(n / 2, y + n / 2, x + n / 2);
+                if (coloredPaper[i][j] != coloredPaper[y][x]) {
+                    n = n/2;
+
+                    recursive(n, y, x);
+                    recursive(n, y + n, x);
+                    recursive(n, y, x + n);
+                    recursive(n, y + n, x + n);
 
                     return;
                 }
         }
 
-        cnt[paper[y][x]]++;
+        count[coloredPaper[y][x]]++;
     }
 }
