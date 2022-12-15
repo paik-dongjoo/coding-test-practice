@@ -1,16 +1,18 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         // 입력받을 숫자의 길이
-        int n = sc.nextInt();
+        int n = Integer.parseInt(br.readLine());
 
         // n의 길이를 갖는 숫자
-        String sNum = sc.next();
+        String sNum = br.readLine();
 
         // sNum을 char[] 배열에 저장
         char[] cNum = sNum.toCharArray();
